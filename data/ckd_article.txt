@@ -1,0 +1,20 @@
+Chronic kidney disease (CKD) is defined as structural or functional abnormalities of the kidney that persist for more than 3 months.
+CKD is classified into five stages based on the glomerular filtration rate (GFR).
+Hypertension is one of the leading causes of chronic kidney disease.
+Diabetes mellitus is the most common cause of end-stage renal disease worldwide.
+Proteinuria is an early marker of kidney damage and predicts disease progression.
+ACE inhibitors and ARBs reduce proteinuria and slow CKD progression.
+Anemia commonly occurs in CKD due to decreased erythropoietin production.
+Metabolic acidosis develops as kidney function declines.
+Hyperkalemia is a life-threatening complication of advanced CKD.
+Kidney transplantation offers the best long-term outcomes for end-stage renal disease.
+Hemodialysis and peritoneal dialysis are renal replacement therapies for end-stage renal disease.
+NSAIDs should be avoided in patients with CKD because they can worsen kidney function.
+Phosphate binders are used to manage hyperphosphatemia in CKD patients.
+Cardiovascular disease is the leading cause of death in patients with CKD.
+eGFR is calculated from serum creatinine using the CKD-EPI equation.
+Nephrotic syndrome is characterized by proteinuria, hypoalbuminemia, and edema.
+Polycystic kidney disease is an inherited disorder that leads to progressive kidney enlargement.
+Regular monitoring of serum creatinine and eGFR is essential for CKD management.
+Dietary protein restriction may slow the progression of CKD.
+Blood pressure control with a target below 130/80 mmHg is recommended for CKD patients.

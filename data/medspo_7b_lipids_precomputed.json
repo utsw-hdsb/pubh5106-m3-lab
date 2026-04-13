@@ -1,0 +1,404 @@
+[
+  {
+    "subject": "Dyslipidemia",
+    "predicate": "characterized_by",
+    "object": "elevated levels of low-density lipoprotein cholesterol (LDL-C)",
+    "subject_type": "disease",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "LDL-C"
+    ],
+    "source_sentence": "Dyslipidemia is characterized by elevated levels of low-density lipoprotein cholesterol (LDL-C) or triglycerides, or reduced levels of high-density lipoprotein cholesterol (HDL-C)."
+  },
+  {
+    "subject": "Dyslipidemia",
+    "predicate": "characterized_by",
+    "object": "elevated levels of triglycerides",
+    "subject_type": "disease",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Dyslipidemia is characterized by elevated levels of low-density lipoprotein cholesterol (LDL-C) or triglycerides, or reduced levels of high-density lipoprotein cholesterol (HDL-C)."
+  },
+  {
+    "subject": "Dyslipidemia",
+    "predicate": "characterized_by",
+    "object": "reduced levels of high-density lipoprotein cholesterol (HDL-C)",
+    "subject_type": "disease",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "HDL-C"
+    ],
+    "source_sentence": "Dyslipidemia is characterized by elevated levels of low-density lipoprotein cholesterol (LDL-C) or triglycerides, or reduced levels of high-density lipoprotein cholesterol (HDL-C)."
+  },
+  {
+    "subject": "Elevated LDL-C",
+    "predicate": "increases_risk_of",
+    "object": "atherosclerotic cardiovascular disease",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Elevated LDL-C is a major risk factor for atherosclerotic cardiovascular disease."
+  },
+  {
+    "subject": "atorvastatin",
+    "predicate": "lowers",
+    "object": "LDL-C",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Statins such as atorvastatin and rosuvastatin lower LDL-C by inhibiting HMG-CoA reductase, the rate-limiting enzyme in cholesterol synthesis."
+  },
+  {
+    "subject": "rosuvastatin",
+    "predicate": "lowers",
+    "object": "LDL-C",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Statins such as atorvastatin and rosuvastatin lower LDL-C by inhibiting HMG-CoA reductase, the rate-limiting enzyme in cholesterol synthesis."
+  },
+  {
+    "subject": "atorvastatin",
+    "predicate": "inhibits",
+    "object": "HMG-CoA reductase",
+    "subject_type": "drug",
+    "object_type": "protein",
+    "confidence": "high",
+    "source_sentence": "Statins such as atorvastatin and rosuvastatin lower LDL-C by inhibiting HMG-CoA reductase, the rate-limiting enzyme in cholesterol synthesis."
+  },
+  {
+    "subject": "rosuvastatin",
+    "predicate": "inhibits",
+    "object": "HMG-CoA reductase",
+    "subject_type": "drug",
+    "object_type": "protein",
+    "confidence": "high",
+    "source_sentence": "Statins such as atorvastatin and rosuvastatin lower LDL-C by inhibiting HMG-CoA reductase, the rate-limiting enzyme in cholesterol synthesis."
+  },
+  {
+    "subject": "HMG-CoA reductase",
+    "predicate": "is rate-limiting enzyme in",
+    "object": "cholesterol synthesis",
+    "subject_type": "protein",
+    "object_type": "pathway",
+    "confidence": "high",
+    "source_sentence": "Statins such as atorvastatin and rosuvastatin lower LDL-C by inhibiting HMG-CoA reductase, the rate-limiting enzyme in cholesterol synthesis."
+  },
+  {
+    "subject": "statin",
+    "predicate": "reduces",
+    "object": "LDL-C",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "low-density lipoprotein cholesterol"
+    ],
+    "source_sentence": "High-intensity statin therapy can reduce LDL-C by 50% or more."
+  },
+  {
+    "subject": "HDL-C",
+    "predicate": "involved_in",
+    "object": "reverse cholesterol transport",
+    "subject_type": "biomarker",
+    "object_type": "other:biological_process",
+    "confidence": "high",
+    "source_sentence": "HDL-C is involved in reverse cholesterol transport, carrying cholesterol from peripheral tissues to the liver for excretion."
+  },
+  {
+    "subject": "HDL-C",
+    "predicate": "carries",
+    "object": "cholesterol",
+    "subject_type": "biomarker",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "HDL-C is involved in reverse cholesterol transport, carrying cholesterol from peripheral tissues to the liver for excretion."
+  },
+  {
+    "subject": "evolocumab",
+    "predicate": "lowers",
+    "object": "LDL-C",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "PCSK9 inhibitors such as evolocumab and alirocumab lower LDL-C by preventing degradation of LDL receptors on hepatocytes."
+  },
+  {
+    "subject": "alirocumab",
+    "predicate": "lowers",
+    "object": "LDL-C",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "PCSK9 inhibitors such as evolocumab and alirocumab lower LDL-C by preventing degradation of LDL receptors on hepatocytes."
+  },
+  {
+    "subject": "PCSK9 inhibitors",
+    "predicate": "prevents degradation of",
+    "object": "LDL receptors",
+    "subject_type": "drug_class",
+    "object_type": "protein",
+    "confidence": "high",
+    "source_sentence": "PCSK9 inhibitors such as evolocumab and alirocumab lower LDL-C by preventing degradation of LDL receptors on hepatocytes."
+  },
+  {
+    "subject": "Ezetimibe",
+    "predicate": "reduces",
+    "object": "intestinal cholesterol absorption",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Ezetimibe reduces intestinal cholesterol absorption and is used as add-on therapy to statins."
+  },
+  {
+    "subject": "Ezetimibe",
+    "predicate": "used as add-on therapy to",
+    "object": "statins",
+    "subject_type": "drug",
+    "object_type": "drug_class",
+    "confidence": "high",
+    "source_sentence": "Ezetimibe reduces intestinal cholesterol absorption and is used as add-on therapy to statins."
+  },
+  {
+    "subject": "mutations in the LDL receptor gene",
+    "predicate": "causes",
+    "object": "Familial hypercholesterolemia",
+    "subject_type": "gene",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Familial hypercholesterolemia is an inherited disorder caused by mutations in the LDL receptor gene, leading to severely elevated LDL-C from birth."
+  },
+  {
+    "subject": "mutations in the LDL receptor gene",
+    "predicate": "leads to",
+    "object": "LDL-C",
+    "subject_type": "gene",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "low-density lipoprotein cholesterol"
+    ],
+    "source_sentence": "Familial hypercholesterolemia is an inherited disorder caused by mutations in the LDL receptor gene, leading to severely elevated LDL-C from birth."
+  },
+  {
+    "subject": "10-year atherosclerotic cardiovascular disease risk score",
+    "predicate": "guides",
+    "object": "statin initiation",
+    "subject_type": "diagnostic_test",
+    "object_type": "treatment",
+    "confidence": "high",
+    "source_sentence": "The 10-year atherosclerotic cardiovascular disease risk score is used to guide statin initiation in primary prevention."
+  },
+  {
+    "subject": "Statin therapy",
+    "predicate": "recommended_for",
+    "object": "patients with established atherosclerotic cardiovascular disease",
+    "subject_type": "treatment",
+    "object_type": "population",
+    "confidence": "high",
+    "source_sentence": "Statin therapy is recommended for all patients with established atherosclerotic cardiovascular disease regardless of baseline LDL-C."
+  },
+  {
+    "subject": "Statin therapy",
+    "predicate": "indicated_for",
+    "object": "atherosclerotic cardiovascular disease",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Statin therapy is recommended for all patients with established atherosclerotic cardiovascular disease regardless of baseline LDL-C."
+  },
+  {
+    "subject": "statin",
+    "predicate": "causes",
+    "object": "myopathy",
+    "subject_type": "drug",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Myopathy is the most clinically significant adverse effect of statin therapy."
+  },
+  {
+    "subject": "Elevated triglycerides",
+    "predicate": "increases_risk_of",
+    "object": "pancreatitis",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Elevated triglycerides are associated with increased risk of pancreatitis when levels exceed 500 mg/dL."
+  },
+  {
+    "subject": "fenofibrate",
+    "predicate": "lowers",
+    "object": "triglycerides",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Fibrates such as fenofibrate lower triglycerides by activating peroxisome proliferator-activated receptor alpha."
+  },
+  {
+    "subject": "fenofibrate",
+    "predicate": "activates",
+    "object": "peroxisome proliferator-activated receptor alpha",
+    "subject_type": "drug",
+    "object_type": "protein",
+    "confidence": "high",
+    "source_sentence": "Fibrates such as fenofibrate lower triglycerides by activating peroxisome proliferator-activated receptor alpha."
+  },
+  {
+    "subject": "Omega-3 fatty acids",
+    "predicate": "reduces",
+    "object": "triglyceride levels",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Omega-3 fatty acids reduce triglyceride levels and may be used as adjunctive therapy in severe hypertriglyceridemia."
+  },
+  {
+    "subject": "Omega-3 fatty acids",
+    "predicate": "used as adjunctive therapy in",
+    "object": "severe hypertriglyceridemia",
+    "subject_type": "drug",
+    "object_type": "disease",
+    "confidence": "medium",
+    "source_sentence": "Omega-3 fatty acids reduce triglyceride levels and may be used as adjunctive therapy in severe hypertriglyceridemia."
+  },
+  {
+    "subject": "Lipoprotein(a)",
+    "predicate": "increases_risk_of",
+    "object": "atherosclerotic cardiovascular disease",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Lipoprotein(a) is an independent genetic risk factor for atherosclerotic cardiovascular disease that is not reduced by statins."
+  },
+  {
+    "subject": "statins",
+    "predicate": "does_not_reduce",
+    "object": "Lipoprotein(a)",
+    "subject_type": "drug_class",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Lipoprotein(a) is an independent genetic risk factor for atherosclerotic cardiovascular disease that is not reduced by statins."
+  },
+  {
+    "subject": "Apolipoprotein B",
+    "predicate": "predicts",
+    "object": "cardiovascular risk",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Apolipoprotein B is a measure of the total number of atherogenic lipoprotein particles and may be a better predictor of cardiovascular risk than LDL-C alone."
+  },
+  {
+    "subject": "Apolipoprotein B",
+    "predicate": "is better predictor than",
+    "object": "LDL-C",
+    "subject_type": "biomarker",
+    "object_type": "biomarker",
+    "confidence": "medium",
+    "object_aliases": [
+      "low-density lipoprotein cholesterol"
+    ],
+    "source_sentence": "Apolipoprotein B is a measure of the total number of atherogenic lipoprotein particles and may be a better predictor of cardiovascular risk than LDL-C alone."
+  },
+  {
+    "subject": "Apolipoprotein B",
+    "predicate": "measures",
+    "object": "total number of atherogenic lipoprotein particles",
+    "subject_type": "biomarker",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Apolipoprotein B is a measure of the total number of atherogenic lipoprotein particles and may be a better predictor of cardiovascular risk than LDL-C alone."
+  },
+  {
+    "subject": "dietary changes",
+    "predicate": "treats",
+    "object": "dyslipidemia",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Lifestyle modifications including dietary changes, exercise, and weight loss are first-line interventions for dyslipidemia."
+  },
+  {
+    "subject": "exercise",
+    "predicate": "treats",
+    "object": "dyslipidemia",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Lifestyle modifications including dietary changes, exercise, and weight loss are first-line interventions for dyslipidemia."
+  },
+  {
+    "subject": "weight loss",
+    "predicate": "treats",
+    "object": "dyslipidemia",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Lifestyle modifications including dietary changes, exercise, and weight loss are first-line interventions for dyslipidemia."
+  },
+  {
+    "subject": "Non-HDL cholesterol",
+    "predicate": "captures",
+    "object": "atherogenic lipoproteins",
+    "subject_type": "biomarker",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Non-HDL cholesterol, calculated as total cholesterol minus HDL-C, captures all atherogenic lipoproteins and is a secondary treatment target."
+  },
+  {
+    "subject": "Non-HDL cholesterol",
+    "predicate": "is secondary treatment target for",
+    "object": "atherosclerosis",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Non-HDL cholesterol, calculated as total cholesterol minus HDL-C, captures all atherogenic lipoproteins and is a secondary treatment target."
+  },
+  {
+    "subject": "Bempedoic acid",
+    "predicate": "inhibits",
+    "object": "ATP citrate lyase",
+    "subject_type": "drug",
+    "object_type": "protein",
+    "confidence": "high",
+    "source_sentence": "Bempedoic acid inhibits ATP citrate lyase, an enzyme upstream of HMG-CoA reductase, and is used in patients who are statin-intolerant."
+  },
+  {
+    "subject": "ATP citrate lyase",
+    "predicate": "is upstream of",
+    "object": "HMG-CoA reductase",
+    "subject_type": "protein",
+    "object_type": "protein",
+    "confidence": "high",
+    "source_sentence": "Bempedoic acid inhibits ATP citrate lyase, an enzyme upstream of HMG-CoA reductase, and is used in patients who are statin-intolerant."
+  },
+  {
+    "subject": "Bempedoic acid",
+    "predicate": "used in",
+    "object": "patients who are statin-intolerant",
+    "subject_type": "drug",
+    "object_type": "population",
+    "confidence": "high",
+    "source_sentence": "Bempedoic acid inhibits ATP citrate lyase, an enzyme upstream of HMG-CoA reductase, and is used in patients who are statin-intolerant."
+  },
+  {
+    "subject": "Inclisiran",
+    "predicate": "targets",
+    "object": "PCSK9 mRNA",
+    "subject_type": "drug",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Inclisiran is a small interfering RNA that targets PCSK9 mRNA in the liver and requires only twice-yearly dosing."
+  },
+  {
+    "subject": "Inclisiran",
+    "predicate": "requires",
+    "object": "twice-yearly dosing",
+    "subject_type": "drug",
+    "object_type": "treatment",
+    "confidence": "high",
+    "source_sentence": "Inclisiran is a small interfering RNA that targets PCSK9 mRNA in the liver and requires only twice-yearly dosing."
+  }
+]

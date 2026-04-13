@@ -1,0 +1,20 @@
+Dyslipidemia is characterized by elevated levels of low-density lipoprotein cholesterol (LDL-C) or triglycerides, or reduced levels of high-density lipoprotein cholesterol (HDL-C).
+Elevated LDL-C is a major risk factor for atherosclerotic cardiovascular disease.
+Statins such as atorvastatin and rosuvastatin lower LDL-C by inhibiting HMG-CoA reductase, the rate-limiting enzyme in cholesterol synthesis.
+High-intensity statin therapy can reduce LDL-C by 50% or more.
+HDL-C is involved in reverse cholesterol transport, carrying cholesterol from peripheral tissues to the liver for excretion.
+PCSK9 inhibitors such as evolocumab and alirocumab lower LDL-C by preventing degradation of LDL receptors on hepatocytes.
+Ezetimibe reduces intestinal cholesterol absorption and is used as add-on therapy to statins.
+Familial hypercholesterolemia is an inherited disorder caused by mutations in the LDL receptor gene, leading to severely elevated LDL-C from birth.
+The 10-year atherosclerotic cardiovascular disease risk score is used to guide statin initiation in primary prevention.
+Statin therapy is recommended for all patients with established atherosclerotic cardiovascular disease regardless of baseline LDL-C.
+Myopathy is the most clinically significant adverse effect of statin therapy.
+Elevated triglycerides are associated with increased risk of pancreatitis when levels exceed 500 mg/dL.
+Fibrates such as fenofibrate lower triglycerides by activating peroxisome proliferator-activated receptor alpha.
+Omega-3 fatty acids reduce triglyceride levels and may be used as adjunctive therapy in severe hypertriglyceridemia.
+Lipoprotein(a) is an independent genetic risk factor for atherosclerotic cardiovascular disease that is not reduced by statins.
+Apolipoprotein B is a measure of the total number of atherogenic lipoprotein particles and may be a better predictor of cardiovascular risk than LDL-C alone.
+Lifestyle modifications including dietary changes, exercise, and weight loss are first-line interventions for dyslipidemia.
+Non-HDL cholesterol, calculated as total cholesterol minus HDL-C, captures all atherogenic lipoproteins and is a secondary treatment target.
+Bempedoic acid inhibits ATP citrate lyase, an enzyme upstream of HMG-CoA reductase, and is used in patients who are statin-intolerant.
+Inclisiran is a small interfering RNA that targets PCSK9 mRNA in the liver and requires only twice-yearly dosing.

@@ -1,0 +1,10 @@
+{
+  "name": "M3 Knowledge Engineer Lab",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "postCreateCommand": "pip install -r requirements.txt && python -m ipykernel install --user --name python3 --display-name Python && python -c 'import gilda; gilda.ground(\"test\")'",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-toolsai.jupyter"]
+    }
+  }
+}

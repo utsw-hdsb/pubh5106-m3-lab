@@ -1,0 +1,6 @@
+requests
+pandas
+gilda
+networkx
+pyvis
+ipykernel

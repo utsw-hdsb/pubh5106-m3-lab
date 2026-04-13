@@ -1,0 +1,344 @@
+[
+  {
+    "subject": "Chronic kidney disease",
+    "predicate": "defined_as",
+    "object": "structural or functional abnormalities of the kidney that persist for more than 3 months",
+    "subject_type": "disease",
+    "object_type": "other:definition",
+    "confidence": "high",
+    "source_sentence": "Chronic kidney disease (CKD) is defined as structural or functional abnormalities of the kidney that persist for more than 3 months."
+  },
+  {
+    "subject": "glomerular filtration rate",
+    "predicate": "classifies",
+    "object": "CKD stages",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "object_aliases": [
+      "chronic kidney disease stages"
+    ],
+    "source_sentence": "CKD is classified into five stages based on the glomerular filtration rate (GFR)."
+  },
+  {
+    "subject": "Hypertension",
+    "predicate": "causes",
+    "object": "chronic kidney disease",
+    "subject_type": "disease",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Hypertension is one of the leading causes of chronic kidney disease."
+  },
+  {
+    "subject": "Diabetes mellitus",
+    "predicate": "causes",
+    "object": "end-stage renal disease",
+    "subject_type": "disease",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Diabetes mellitus is the most common cause of end-stage renal disease worldwide."
+  },
+  {
+    "subject": "proteinuria",
+    "predicate": "is_marker_of",
+    "object": "kidney damage",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Proteinuria is an early marker of kidney damage and predicts disease progression."
+  },
+  {
+    "subject": "proteinuria",
+    "predicate": "predicts",
+    "object": "disease progression",
+    "subject_type": "biomarker",
+    "object_type": "outcome",
+    "confidence": "high",
+    "source_sentence": "Proteinuria is an early marker of kidney damage and predicts disease progression."
+  },
+  {
+    "subject": "ACE inhibitors",
+    "predicate": "reduces",
+    "object": "proteinuria",
+    "subject_type": "drug_class",
+    "object_type": "symptom",
+    "confidence": "high",
+    "source_sentence": "ACE inhibitors and ARBs reduce proteinuria and slow CKD progression."
+  },
+  {
+    "subject": "ACE inhibitors",
+    "predicate": "slows",
+    "object": "CKD progression",
+    "subject_type": "drug_class",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "ACE inhibitors and ARBs reduce proteinuria and slow CKD progression."
+  },
+  {
+    "subject": "ARBs",
+    "predicate": "reduces",
+    "object": "proteinuria",
+    "subject_type": "drug_class",
+    "object_type": "symptom",
+    "confidence": "high",
+    "source_sentence": "ACE inhibitors and ARBs reduce proteinuria and slow CKD progression."
+  },
+  {
+    "subject": "ARBs",
+    "predicate": "slows",
+    "object": "CKD progression",
+    "subject_type": "drug_class",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "ACE inhibitors and ARBs reduce proteinuria and slow CKD progression."
+  },
+  {
+    "subject": "CKD",
+    "predicate": "causes",
+    "object": "Anemia",
+    "subject_type": "disease",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Anemia commonly occurs in CKD due to decreased erythropoietin production."
+  },
+  {
+    "subject": "CKD",
+    "predicate": "decreases",
+    "object": "erythropoietin production",
+    "subject_type": "disease",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "source_sentence": "Anemia commonly occurs in CKD due to decreased erythropoietin production."
+  },
+  {
+    "subject": "kidney function decline",
+    "predicate": "causes",
+    "object": "Metabolic acidosis",
+    "subject_type": "disease",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Metabolic acidosis develops as kidney function declines."
+  },
+  {
+    "subject": "advanced CKD",
+    "predicate": "causes",
+    "object": "Hyperkalemia",
+    "subject_type": "disease",
+    "object_type": "complication",
+    "confidence": "high",
+    "source_sentence": "Hyperkalemia is a life-threatening complication of advanced CKD."
+  },
+  {
+    "subject": "Kidney transplantation",
+    "predicate": "offers",
+    "object": "best long-term outcomes",
+    "subject_type": "procedure",
+    "object_type": "outcome",
+    "confidence": "high",
+    "source_sentence": "Kidney transplantation offers the best long-term outcomes for end-stage renal disease."
+  },
+  {
+    "subject": "Kidney transplantation",
+    "predicate": "treats",
+    "object": "end-stage renal disease",
+    "subject_type": "procedure",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Kidney transplantation offers the best long-term outcomes for end-stage renal disease."
+  },
+  {
+    "subject": "Hemodialysis",
+    "predicate": "treats",
+    "object": "end-stage renal disease",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Hemodialysis and peritoneal dialysis are renal replacement therapies for end-stage renal disease."
+  },
+  {
+    "subject": "peritoneal dialysis",
+    "predicate": "treats",
+    "object": "end-stage renal disease",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Hemodialysis and peritoneal dialysis are renal replacement therapies for end-stage renal disease."
+  },
+  {
+    "subject": "NSAIDs",
+    "predicate": "worsens",
+    "object": "kidney function",
+    "subject_type": "drug_class",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "renal function"
+    ],
+    "source_sentence": "NSAIDs should be avoided in patients with CKD because they can worsen kidney function."
+  },
+  {
+    "subject": "NSAIDs",
+    "predicate": "should be avoided in",
+    "object": "patients with CKD",
+    "subject_type": "drug_class",
+    "object_type": "population",
+    "confidence": "high",
+    "source_sentence": "NSAIDs should be avoided in patients with CKD because they can worsen kidney function."
+  },
+  {
+    "subject": "Phosphate binders",
+    "predicate": "treats",
+    "object": "hyperphosphatemia",
+    "subject_type": "drug",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Phosphate binders are used to manage hyperphosphatemia in CKD patients."
+  },
+  {
+    "subject": "CKD",
+    "predicate": "causes",
+    "object": "hyperphosphatemia",
+    "subject_type": "disease",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Phosphate binders are used to manage hyperphosphatemia in CKD patients."
+  },
+  {
+    "subject": "CKD",
+    "predicate": "causes",
+    "object": "Cardiovascular disease",
+    "subject_type": "disease",
+    "object_type": "disease",
+    "confidence": "high",
+    "source_sentence": "Cardiovascular disease is the leading cause of death in patients with CKD."
+  },
+  {
+    "subject": "Cardiovascular disease",
+    "predicate": "is_leading_cause_of_death_in",
+    "object": "patients with CKD",
+    "subject_type": "disease",
+    "object_type": "population",
+    "confidence": "high",
+    "source_sentence": "Cardiovascular disease is the leading cause of death in patients with CKD."
+  },
+  {
+    "subject": "CKD-EPI equation",
+    "predicate": "calculates",
+    "object": "eGFR",
+    "subject_type": "diagnostic_test",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "estimated glomerular filtration rate"
+    ],
+    "source_sentence": "eGFR is calculated from serum creatinine using the CKD-EPI equation."
+  },
+  {
+    "subject": "serum creatinine",
+    "predicate": "used_in_calculation_of",
+    "object": "eGFR",
+    "subject_type": "biomarker",
+    "object_type": "biomarker",
+    "confidence": "high",
+    "object_aliases": [
+      "estimated glomerular filtration rate"
+    ],
+    "source_sentence": "eGFR is calculated from serum creatinine using the CKD-EPI equation."
+  },
+  {
+    "subject": "Nephrotic syndrome",
+    "predicate": "manifests_as",
+    "object": "proteinuria",
+    "subject_type": "disease",
+    "object_type": "symptom",
+    "confidence": "high",
+    "source_sentence": "Nephrotic syndrome is characterized by proteinuria, hypoalbuminemia, and edema."
+  },
+  {
+    "subject": "Nephrotic syndrome",
+    "predicate": "manifests_as",
+    "object": "hypoalbuminemia",
+    "subject_type": "disease",
+    "object_type": "symptom",
+    "confidence": "high",
+    "source_sentence": "Nephrotic syndrome is characterized by proteinuria, hypoalbuminemia, and edema."
+  },
+  {
+    "subject": "Nephrotic syndrome",
+    "predicate": "manifests_as",
+    "object": "edema",
+    "subject_type": "disease",
+    "object_type": "symptom",
+    "confidence": "high",
+    "source_sentence": "Nephrotic syndrome is characterized by proteinuria, hypoalbuminemia, and edema."
+  },
+  {
+    "subject": "Polycystic kidney disease",
+    "predicate": "causes",
+    "object": "progressive kidney enlargement",
+    "subject_type": "disease",
+    "object_type": "complication",
+    "confidence": "high",
+    "source_sentence": "Polycystic kidney disease is an inherited disorder that leads to progressive kidney enlargement."
+  },
+  {
+    "subject": "serum creatinine",
+    "predicate": "monitored_for",
+    "object": "CKD management",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "object_aliases": [
+      "chronic kidney disease"
+    ],
+    "source_sentence": "Regular monitoring of serum creatinine and eGFR is essential for CKD management."
+  },
+  {
+    "subject": "eGFR",
+    "predicate": "monitored_for",
+    "object": "CKD management",
+    "subject_type": "biomarker",
+    "object_type": "disease",
+    "confidence": "high",
+    "object_aliases": [
+      "chronic kidney disease"
+    ],
+    "source_sentence": "Regular monitoring of serum creatinine and eGFR is essential for CKD management."
+  },
+  {
+    "subject": "Dietary protein restriction",
+    "predicate": "slows",
+    "object": "CKD progression",
+    "subject_type": "treatment",
+    "object_type": "disease",
+    "confidence": "high",
+    "object_aliases": [
+      "chronic kidney disease progression"
+    ],
+    "source_sentence": "Dietary protein restriction may slow the progression of CKD."
+  },
+  {
+    "subject": "blood pressure control",
+    "predicate": "recommended_for",
+    "object": "CKD patients",
+    "subject_type": "treatment",
+    "object_type": "population",
+    "confidence": "high",
+    "object_aliases": [
+      "chronic kidney disease patients"
+    ],
+    "source_sentence": "Blood pressure control with a target below 130/80 mmHg is recommended for CKD patients."
+  },
+  {
+    "subject": "blood pressure control",
+    "predicate": "target_below",
+    "object": "CKD patients",
+    "subject_type": "treatment",
+    "object_type": "population",
+    "confidence": "high",
+    "object_aliases": [
+      "chronic kidney disease patients"
+    ],
+    "source_sentence": "Blood pressure control with a target below 130/80 mmHg is recommended for CKD patients."
+  }
+]

@@ -1,0 +1,126 @@
+{
+  "source": "lipids_article.txt",
+  "description": "Gold standard SPO triples from the lipids/dyslipidemia article (curveball round).",
+  "triples": [
+    {
+      "subject": "elevated LDL-C",
+      "predicate": "is_risk_factor_for",
+      "object": "atherosclerotic cardiovascular disease",
+      "keywords_s": ["elevated LDL-C", "LDL-C", "LDL cholesterol", "low-density lipoprotein"],
+      "keywords_o": ["atherosclerotic cardiovascular disease", "ASCVD", "cardiovascular disease", "CVD"],
+      "keywords_p": ["risk factor", "causes", "leads to"]
+    },
+    {
+      "subject": "statins",
+      "predicate": "inhibits",
+      "object": "HMG-CoA reductase",
+      "keywords_s": ["statins", "statin", "atorvastatin", "rosuvastatin"],
+      "keywords_o": ["HMG-CoA reductase", "HMG CoA reductase"],
+      "keywords_p": ["inhibits", "inhibit", "blocks", "targets"]
+    },
+    {
+      "subject": "statins",
+      "predicate": "lowers",
+      "object": "LDL-C",
+      "keywords_s": ["statins", "statin", "atorvastatin", "rosuvastatin"],
+      "keywords_o": ["LDL-C", "LDL cholesterol", "low-density lipoprotein"],
+      "keywords_p": ["lowers", "reduces", "decreases"]
+    },
+    {
+      "subject": "PCSK9 inhibitors",
+      "predicate": "lowers",
+      "object": "LDL-C",
+      "keywords_s": ["PCSK9 inhibitors", "PCSK9 inhibitor", "evolocumab", "alirocumab"],
+      "keywords_o": ["LDL-C", "LDL cholesterol", "low-density lipoprotein"],
+      "keywords_p": ["lowers", "reduces", "decreases"]
+    },
+    {
+      "subject": "PCSK9 inhibitors",
+      "predicate": "prevents_degradation_of",
+      "object": "LDL receptors",
+      "keywords_s": ["PCSK9 inhibitors", "PCSK9 inhibitor", "evolocumab", "alirocumab"],
+      "keywords_o": ["LDL receptors", "LDL receptor"],
+      "keywords_p": ["prevents degradation", "blocks degradation", "preserves", "protects"]
+    },
+    {
+      "subject": "ezetimibe",
+      "predicate": "reduces",
+      "object": "intestinal cholesterol absorption",
+      "keywords_s": ["ezetimibe"],
+      "keywords_o": ["cholesterol absorption", "intestinal cholesterol absorption"],
+      "keywords_p": ["reduces", "inhibits", "blocks", "decreases"]
+    },
+    {
+      "subject": "familial hypercholesterolemia",
+      "predicate": "caused_by",
+      "object": "LDL receptor gene mutations",
+      "keywords_s": ["familial hypercholesterolemia", "FH"],
+      "keywords_o": ["LDL receptor gene mutations", "LDL receptor mutations", "LDLR mutations", "LDL receptor gene"],
+      "keywords_p": ["caused by", "results from", "due to", "mutations in"]
+    },
+    {
+      "subject": "myopathy",
+      "predicate": "is_adverse_effect_of",
+      "object": "statin therapy",
+      "keywords_s": ["myopathy", "muscle pain", "myalgia"],
+      "keywords_o": ["statin therapy", "statins", "statin"],
+      "keywords_p": ["adverse effect", "side effect", "complication", "caused by"]
+    },
+    {
+      "subject": "elevated triglycerides",
+      "predicate": "is_risk_factor_for",
+      "object": "pancreatitis",
+      "keywords_s": ["elevated triglycerides", "triglycerides", "hypertriglyceridemia"],
+      "keywords_o": ["pancreatitis"],
+      "keywords_p": ["risk factor", "associated with", "causes", "leads to"]
+    },
+    {
+      "subject": "fibrates",
+      "predicate": "lowers",
+      "object": "triglycerides",
+      "keywords_s": ["fibrates", "fibrate", "fenofibrate"],
+      "keywords_o": ["triglycerides"],
+      "keywords_p": ["lowers", "reduces", "decreases"]
+    },
+    {
+      "subject": "fibrates",
+      "predicate": "activates",
+      "object": "PPAR-alpha",
+      "keywords_s": ["fibrates", "fibrate", "fenofibrate"],
+      "keywords_o": ["PPAR-alpha", "peroxisome proliferator-activated receptor alpha", "PPARa"],
+      "keywords_p": ["activates", "acts on", "targets", "agonist"]
+    },
+    {
+      "subject": "lipoprotein(a)",
+      "predicate": "is_risk_factor_for",
+      "object": "atherosclerotic cardiovascular disease",
+      "keywords_s": ["lipoprotein(a)", "Lp(a)", "lipoprotein a"],
+      "keywords_o": ["atherosclerotic cardiovascular disease", "ASCVD", "cardiovascular disease"],
+      "keywords_p": ["risk factor", "associated with", "predicts"]
+    },
+    {
+      "subject": "HDL-C",
+      "predicate": "involved_in",
+      "object": "reverse cholesterol transport",
+      "keywords_s": ["HDL-C", "HDL cholesterol", "high-density lipoprotein"],
+      "keywords_o": ["reverse cholesterol transport"],
+      "keywords_p": ["involved in", "mediates", "participates in", "role in"]
+    },
+    {
+      "subject": "bempedoic acid",
+      "predicate": "inhibits",
+      "object": "ATP citrate lyase",
+      "keywords_s": ["bempedoic acid"],
+      "keywords_o": ["ATP citrate lyase", "ACL"],
+      "keywords_p": ["inhibits", "blocks", "targets"]
+    },
+    {
+      "subject": "inclisiran",
+      "predicate": "targets",
+      "object": "PCSK9 mRNA",
+      "keywords_s": ["inclisiran"],
+      "keywords_o": ["PCSK9 mRNA", "PCSK9"],
+      "keywords_p": ["targets", "silences", "inhibits", "blocks"]
+    }
+  ]
+}
