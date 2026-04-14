@@ -8,7 +8,7 @@
       "object": "chronic kidney disease",
       "keywords_s": ["hypertension", "high blood pressure", "HTN"],
       "keywords_o": ["chronic kidney disease", "CKD", "kidney disease"],
-      "keywords_p": ["causes", "leading cause", "risk factor"]
+      "keywords_p": ["causes", "leading cause", "risk factor", "is_risk_factor_for"]
     },
     {
       "subject": "diabetes mellitus",
@@ -16,7 +16,7 @@
       "object": "end-stage renal disease",
       "keywords_s": ["diabetes mellitus", "diabetes", "DM"],
       "keywords_o": ["end-stage renal disease", "ESRD", "end stage kidney disease", "kidney failure"],
-      "keywords_p": ["causes", "most common cause", "leading cause"]
+      "keywords_p": ["causes", "most common cause", "leading cause", "is_risk_factor_for"]
     },
     {
       "subject": "proteinuria",
@@ -24,7 +24,7 @@
       "object": "kidney damage",
       "keywords_s": ["proteinuria", "protein in urine"],
       "keywords_o": ["kidney damage", "renal damage", "nephropathy"],
-      "keywords_p": ["marker", "indicates", "sign of", "early marker"]
+      "keywords_p": ["marker", "indicates", "sign of", "early marker", "is_marker_of"]
     },
     {
       "subject": "ACE inhibitors",
@@ -32,23 +32,23 @@
       "object": "proteinuria",
       "keywords_s": ["ACE inhibitors", "ACE inhibitor", "ACEI", "angiotensin converting enzyme"],
       "keywords_o": ["proteinuria"],
-      "keywords_p": ["reduces", "decrease", "lower", "treat"]
+      "keywords_p": ["reduces", "decrease", "lower", "treat", "treats", "manages"]
     },
     {
       "subject": "ARBs",
       "predicate": "reduces",
       "object": "proteinuria",
-      "keywords_s": ["ARBs", "ARB", "angiotensin receptor blocker"],
+      "keywords_s": ["ARBs", "ARB", "angiotensin receptor blocker", "angiotensin II receptor"],
       "keywords_o": ["proteinuria"],
-      "keywords_p": ["reduces", "decrease", "lower", "treat"]
+      "keywords_p": ["reduces", "decrease", "lower", "treat", "treats", "manages"]
     },
     {
       "subject": "ACE inhibitors",
-      "predicate": "slows",
-      "object": "CKD progression",
+      "predicate": "slows_progression_of",
+      "object": "CKD",
       "keywords_s": ["ACE inhibitors", "ACE inhibitor", "ACEI"],
-      "keywords_o": ["CKD progression", "chronic kidney disease progression", "disease progression"],
-      "keywords_p": ["slows", "slow", "delays", "reduces progression"]
+      "keywords_o": ["CKD progression", "chronic kidney disease progression", "disease progression", "CKD", "chronic kidney disease"],
+      "keywords_p": ["slows", "slow", "delays", "reduces progression", "slows_progression_of"]
     },
     {
       "subject": "anemia",
@@ -56,15 +56,15 @@
       "object": "CKD",
       "keywords_s": ["anemia"],
       "keywords_o": ["CKD", "chronic kidney disease"],
-      "keywords_p": ["complication", "occurs in", "associated with", "caused by"]
+      "keywords_p": ["complication", "occurs in", "associated with", "caused by", "is_complication_of"]
     },
     {
       "subject": "decreased erythropoietin production",
       "predicate": "causes",
       "object": "anemia",
-      "keywords_s": ["erythropoietin", "EPO", "decreased erythropoietin"],
+      "keywords_s": ["erythropoietin", "EPO", "decreased erythropoietin", "kidney", "CKD"],
       "keywords_o": ["anemia"],
-      "keywords_p": ["causes", "leads to", "results in"]
+      "keywords_p": ["causes", "leads to", "results in", "is_complication_of"]
     },
     {
       "subject": "hyperkalemia",
@@ -72,7 +72,7 @@
       "object": "advanced CKD",
       "keywords_s": ["hyperkalemia", "high potassium"],
       "keywords_o": ["advanced CKD", "CKD", "chronic kidney disease"],
-      "keywords_p": ["complication", "occurs in", "associated with"]
+      "keywords_p": ["complication", "occurs in", "associated with", "is_complication_of"]
     },
     {
       "subject": "kidney transplantation",
@@ -80,7 +80,7 @@
       "object": "end-stage renal disease",
       "keywords_s": ["kidney transplantation", "renal transplant", "transplant"],
       "keywords_o": ["end-stage renal disease", "ESRD", "kidney failure"],
-      "keywords_p": ["treats", "treatment for", "best outcome"]
+      "keywords_p": ["treats", "treatment for", "best outcome", "manages"]
     },
     {
       "subject": "hemodialysis",
@@ -88,7 +88,7 @@
       "object": "end-stage renal disease",
       "keywords_s": ["hemodialysis", "dialysis"],
       "keywords_o": ["end-stage renal disease", "ESRD", "kidney failure"],
-      "keywords_p": ["treats", "therapy for", "replacement therapy"]
+      "keywords_p": ["treats", "therapy for", "replacement therapy", "manages"]
     },
     {
       "subject": "peritoneal dialysis",
@@ -96,15 +96,15 @@
       "object": "end-stage renal disease",
       "keywords_s": ["peritoneal dialysis"],
       "keywords_o": ["end-stage renal disease", "ESRD", "kidney failure"],
-      "keywords_p": ["treats", "therapy for", "replacement therapy"]
+      "keywords_p": ["treats", "therapy for", "replacement therapy", "manages"]
     },
     {
       "subject": "NSAIDs",
       "predicate": "worsens",
       "object": "kidney function",
       "keywords_s": ["NSAIDs", "NSAID", "nonsteroidal anti-inflammatory"],
-      "keywords_o": ["kidney function", "renal function", "CKD"],
-      "keywords_p": ["worsens", "worsen", "contraindicated", "avoided", "harmful"]
+      "keywords_o": ["kidney function", "renal function", "CKD", "kidney"],
+      "keywords_p": ["worsens", "worsen", "contraindicated", "avoided", "harmful", "is_risk_factor_for"]
     },
     {
       "subject": "phosphate binders",
@@ -112,15 +112,15 @@
       "object": "hyperphosphatemia",
       "keywords_s": ["phosphate binders", "phosphate binder"],
       "keywords_o": ["hyperphosphatemia", "high phosphate", "phosphorus"],
-      "keywords_p": ["manages", "treats", "used for", "controls"]
+      "keywords_p": ["manages", "treats", "used for", "controls", "reduces"]
     },
     {
       "subject": "cardiovascular disease",
-      "predicate": "is_leading_cause_of_death_in",
-      "object": "CKD patients",
+      "predicate": "is_complication_of",
+      "object": "CKD",
       "keywords_s": ["cardiovascular disease", "CVD", "heart disease"],
       "keywords_o": ["CKD", "chronic kidney disease", "CKD patients"],
-      "keywords_p": ["leading cause of death", "causes death", "mortality"]
+      "keywords_p": ["leading cause of death", "causes death", "mortality", "is_complication_of", "is_risk_factor_for", "causes"]
     },
     {
       "subject": "eGFR",
@@ -128,7 +128,7 @@
       "object": "serum creatinine",
       "keywords_s": ["eGFR", "estimated GFR", "glomerular filtration rate"],
       "keywords_o": ["serum creatinine", "creatinine"],
-      "keywords_p": ["calculated", "measured", "derived from", "estimated from"]
+      "keywords_p": ["calculated", "measured", "derived from", "estimated from", "calculated_from"]
     },
     {
       "subject": "nephrotic syndrome",
@@ -136,7 +136,7 @@
       "object": "proteinuria",
       "keywords_s": ["nephrotic syndrome"],
       "keywords_o": ["proteinuria"],
-      "keywords_p": ["characterized by", "features", "presents with"]
+      "keywords_p": ["characterized by", "features", "presents with", "characterized_by"]
     },
     {
       "subject": "polycystic kidney disease",
@@ -151,16 +151,64 @@
       "predicate": "is_complication_of",
       "object": "declining kidney function",
       "keywords_s": ["metabolic acidosis", "acidosis"],
-      "keywords_o": ["kidney function", "declining kidney function", "CKD"],
-      "keywords_p": ["develops", "complication", "occurs", "associated with"]
+      "keywords_o": ["kidney function", "declining kidney function", "CKD", "chronic kidney disease"],
+      "keywords_p": ["develops", "complication", "occurs", "associated with", "is_complication_of"]
     },
     {
       "subject": "dietary protein restriction",
-      "predicate": "may_slow",
-      "object": "CKD progression",
+      "predicate": "slows_progression_of",
+      "object": "CKD",
       "keywords_s": ["dietary protein restriction", "protein restriction", "diet"],
-      "keywords_o": ["CKD progression", "progression", "chronic kidney disease"],
-      "keywords_p": ["slow", "may slow", "reduces", "delays"]
+      "keywords_o": ["CKD progression", "progression", "chronic kidney disease", "CKD"],
+      "keywords_p": ["slow", "may slow", "reduces", "delays", "slows_progression_of", "may_slow"]
+    },
+    {
+      "subject": "proteinuria",
+      "predicate": "predicts",
+      "object": "disease progression",
+      "keywords_s": ["proteinuria", "protein in urine"],
+      "keywords_o": ["disease progression", "progression", "CKD progression"],
+      "keywords_p": ["predicts", "predictor", "indicates", "is_marker_of", "marker"]
+    },
+    {
+      "subject": "ARBs",
+      "predicate": "slows_progression_of",
+      "object": "CKD",
+      "keywords_s": ["ARBs", "ARB", "angiotensin receptor blocker", "angiotensin II receptor"],
+      "keywords_o": ["CKD progression", "CKD", "chronic kidney disease", "disease progression"],
+      "keywords_p": ["slows", "slow", "delays", "slows_progression_of", "reduces progression"]
+    },
+    {
+      "subject": "nephrotic syndrome",
+      "predicate": "characterized_by",
+      "object": "hypoalbuminemia",
+      "keywords_s": ["nephrotic syndrome"],
+      "keywords_o": ["hypoalbuminemia", "low albumin"],
+      "keywords_p": ["characterized by", "features", "presents with", "characterized_by"]
+    },
+    {
+      "subject": "nephrotic syndrome",
+      "predicate": "characterized_by",
+      "object": "edema",
+      "keywords_s": ["nephrotic syndrome"],
+      "keywords_o": ["edema", "swelling"],
+      "keywords_p": ["characterized by", "features", "presents with", "characterized_by"]
+    },
+    {
+      "subject": "serum creatinine",
+      "predicate": "is_marker_of",
+      "object": "CKD",
+      "keywords_s": ["serum creatinine", "creatinine"],
+      "keywords_o": ["CKD", "chronic kidney disease", "kidney function"],
+      "keywords_p": ["marker", "is_marker_of", "monitors", "indicates", "manages"]
+    },
+    {
+      "subject": "eGFR",
+      "predicate": "is_marker_of",
+      "object": "CKD",
+      "keywords_s": ["eGFR", "estimated GFR", "glomerular filtration rate"],
+      "keywords_o": ["CKD", "chronic kidney disease", "kidney function"],
+      "keywords_p": ["marker", "is_marker_of", "monitors", "indicates", "manages"]
     }
   ]
 }

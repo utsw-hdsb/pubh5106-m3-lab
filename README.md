@@ -6,7 +6,17 @@ A competitive, gamified lab where student teams act as knowledge engineers, extr
 
 ## Quick Start
 
+### Option A: GitHub Codespaces (recommended)
+
 1. **Open in Codespaces:** Click the green "Code" button, then "Create codespace on main". Dependencies install automatically (~2 min, includes Gilda grounding database).
+
+### Option B: Binder
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/utsw-hdsb/pubh5106-m3-lab/main)
+
+Click the badge above to launch in Binder. Build takes ~5 min on first launch (installs packages and downloads Gilda database).
+
+### Then
 
 2. **Open the notebook:** `M3_student_rev5.ipynb`
 
@@ -42,6 +52,8 @@ A competitive, gamified lab where student teams act as knowledge engineers, extr
 ├── README.md               # This file
 ├── .devcontainer/
 │   └── devcontainer.json   # Codespaces configuration
+├── postBuild               # Binder build script
+├── runtime.txt             # Binder Python version
 └── data/
     ├── ckd_article.txt
     ├── gold_standard_triples.json

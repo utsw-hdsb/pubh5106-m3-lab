@@ -4,3 +4,4 @@ gilda
 networkx
 pyvis
 ipykernel
+ipywidgets

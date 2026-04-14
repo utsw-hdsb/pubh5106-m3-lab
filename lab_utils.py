@@ -32,9 +32,16 @@ from IPython.display import display, Markdown
 
 DATA_DIR = Path("data")
 
+# Backend: "groq" (default, for students) or "ollama" (for local testing)
+BACKEND = "groq"
+
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+OLLAMA_API_URL = "http://localhost:11434"
 
 SMALL_MODEL = "llama-3.1-8b-instant"
+
+# Ollama model name (used when BACKEND == "ollama")
+OLLAMA_MODEL = "llama3.1:8b"
 
 # Leaderboard (Google Forms) — instructor configures before class
 FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdE1zpZDv9whj3poTtQvTyXe9Z72B0FJDTAJA-db0ZfSt1O5A/formResponse"
@@ -157,24 +164,34 @@ def load_medspo_precomputed(model_size: str, article: str) -> list[dict]:
 
 
 # ─────────────────────────────────────────────────────────────────────
-# LLM interaction (Groq API with key rotation)
+# LLM interaction
 # ─────────────────────────────────────────────────────────────────────
 
-def call_llm(
-    user_message: str,
-    system_prompt: str | None = None,
-    model: str = SMALL_MODEL,
-    temperature: float | None = None,
-) -> str:
-    """Call an LLM via the Groq API. Returns the response text.
+def _call_ollama(messages: list[dict], model: str, temperature: float | None) -> str:
+    """Call a local Ollama model."""
+    payload = {
+        "model": model,
+        "messages": messages,
+        "stream": False,
+    }
+    if temperature is not None:
+        payload["options"] = {"temperature": temperature}
 
-    Automatically rotates API keys on rate-limit (429) errors.
-    """
-    messages = []
-    if system_prompt:
-        messages.append({"role": "system", "content": system_prompt})
-    messages.append({"role": "user", "content": user_message})
+    t0 = time.time()
+    response = requests.post(
+        f"{OLLAMA_API_URL}/api/chat",
+        json=payload,
+        timeout=300,
+    )
+    response.raise_for_status()
+    elapsed = time.time() - t0
+    result = response.json()["message"]["content"]
+    print(f"  [{model}] {len(result)} chars, {elapsed:.1f}s (ollama)")
+    return result
 
+
+def _call_groq(messages: list[dict], model: str, temperature: float | None) -> str:
+    """Call Groq API with key rotation."""
     payload = {
         "model": model,
         "messages": messages,
@@ -183,7 +200,6 @@ def call_llm(
     if temperature is not None:
         payload["temperature"] = temperature
 
-    # Try all keys before giving up
     keys_tried = 0
     max_retries_per_key = 3
     t0 = time.time()
@@ -214,7 +230,6 @@ def call_llm(
                 return result
 
             elif response.status_code == 429:
-                # Rate limited — check if we should wait or rotate
                 retry_after = response.headers.get("retry-after")
                 if retry_after and float(retry_after) < 30:
                     wait = float(retry_after) + 1
@@ -230,15 +245,34 @@ def call_llm(
             else:
                 response.raise_for_status()
 
-        # Rotate to next key
         keys_tried += 1
         if not _rotate_key():
-            break  # wrapped around — all keys tried
+            break
 
     raise RuntimeError(
         "All API keys have been rate-limited. Wait a few minutes and try again, "
         "or add more API keys with set_api_keys()."
     )
+
+
+def call_llm(
+    user_message: str,
+    system_prompt: str | None = None,
+    model: str | None = None,
+    temperature: float | None = None,
+) -> str:
+    """Call an LLM. Uses BACKEND setting to route to Groq or Ollama."""
+    messages = []
+    if system_prompt:
+        messages.append({"role": "system", "content": system_prompt})
+    messages.append({"role": "user", "content": user_message})
+
+    if BACKEND == "ollama":
+        # Always use OLLAMA_MODEL — ignore Groq model names passed by notebook
+        return _call_ollama(messages, OLLAMA_MODEL, temperature)
+    else:
+        groq_model = model if model else SMALL_MODEL
+        return _call_groq(messages, groq_model, temperature)
 
 
 def extract_all_triples(
@@ -307,28 +341,41 @@ def keyword_match(candidate: str, keywords: list[str]) -> bool:
     return any(kw.lower() in c for kw in keywords)
 
 
-def match_triple(ext_triple: dict, gold_triple: dict) -> bool:
-    """Check if an extracted triple matches a gold standard triple.
-
-    Matches subject, object, AND predicate (all three must match).
-    Uses both fuzzy matching on the canonical name and keyword matching.
-    """
-    # Subject match
+def _match_directed(ext_triple: dict, gold_triple: dict) -> bool:
+    """Check if extracted triple matches gold in the given direction."""
     s_match = (fuzzy_match(ext_triple.get("subject", ""), gold_triple["subject"])
                or keyword_match(ext_triple.get("subject", ""), gold_triple["keywords_s"]))
     if not s_match:
         return False
 
-    # Object match
     o_match = (fuzzy_match(ext_triple.get("object", ""), gold_triple["object"])
                or keyword_match(ext_triple.get("object", ""), gold_triple["keywords_o"]))
     if not o_match:
         return False
 
-    # Predicate match (looser — predicates vary more in phrasing)
     p_match = (fuzzy_match(ext_triple.get("predicate", ""), gold_triple["predicate"])
                or keyword_match(ext_triple.get("predicate", ""), gold_triple["keywords_p"]))
     return p_match
+
+
+def match_triple(ext_triple: dict, gold_triple: dict) -> bool:
+    """Check if an extracted triple matches a gold standard triple.
+
+    Tries both directions: if the LLM reversed subject and object but
+    got the right entities and a matching predicate, it still counts.
+    This is standard in KG evaluation — directionality errors are
+    penalized separately from entity/predicate errors.
+    """
+    if _match_directed(ext_triple, gold_triple):
+        return True
+
+    # Try swapped: extracted subject matches gold object and vice versa
+    swapped = {
+        "subject": ext_triple.get("object", ""),
+        "object": ext_triple.get("subject", ""),
+        "predicate": ext_triple.get("predicate", ""),
+    }
+    return _match_directed(swapped, gold_triple)
 
 
 def score_triples(extracted: list[dict], gold: list[dict]) -> dict:
@@ -491,8 +538,29 @@ def submit_to_leaderboard(round_num: int, result: dict) -> None:
 # Verification
 # ─────────────────────────────────────────────────────────────────────
 
+def use_ollama(model: str = "llama3.1:8b", url: str = "http://localhost:11434") -> None:
+    """Switch to local Ollama backend for testing.
+
+    Usage in notebook:
+        lab_utils.use_ollama()                    # defaults
+        lab_utils.use_ollama("llama3.2:3b")       # different model
+    """
+    global BACKEND, OLLAMA_MODEL, OLLAMA_API_URL
+    BACKEND = "ollama"
+    OLLAMA_MODEL = model
+    OLLAMA_API_URL = url
+    print(f"Switched to Ollama backend: {model} at {url}")
+
+
+def use_groq() -> None:
+    """Switch back to Groq backend (default for students)."""
+    global BACKEND
+    BACKEND = "groq"
+    print(f"Switched to Groq backend: {SMALL_MODEL}")
+
+
 def verify_setup() -> None:
-    """Verify that data files are present and the Groq API is reachable."""
+    """Verify that data files are present and the LLM backend is reachable."""
     print("Checking data files...")
     for name in ["ckd_article.txt", "gold_standard_triples.json",
                  "lipids_article.txt", "gold_standard_triples_lipids.json"]:
@@ -506,36 +574,48 @@ def verify_setup() -> None:
         "medspo_7b_ckd_precomputed.json",
         "medspo_7b_lipids_precomputed.json",
     ]
-    # Also check legacy filenames
     legacy = ["medspo_ckd_precomputed.json", "medspo_lipids_precomputed.json"]
     for name in precomputed + legacy:
         path = DATA_DIR / name
         if path.exists():
             print(f"  {name}: found")
 
-    print("\nChecking Groq API...")
-    if not _api_keys:
-        print("  No API keys registered yet.")
-        print("  *** Call lab_utils.set_api_keys(['gsk_...', 'gsk_...']) ***")
-    else:
+    print(f"\nBackend: {BACKEND}")
+    if BACKEND == "ollama":
+        print(f"  Model: {OLLAMA_MODEL}")
+        print(f"  URL: {OLLAMA_API_URL}")
         try:
-            headers = {
-                "Authorization": f"Bearer {_get_current_key()}",
-                "Content-Type": "application/json",
-            }
-            r = requests.get(
-                "https://api.groq.com/openai/v1/models",
-                headers=headers,
-                timeout=10,
-            )
+            r = requests.get(f"{OLLAMA_API_URL}/api/tags", timeout=5)
             r.raise_for_status()
-            models = [m["id"] for m in r.json().get("data", [])]
-            found = SMALL_MODEL in models
+            models = [m["name"] for m in r.json().get("models", [])]
+            found = any(OLLAMA_MODEL in m for m in models)
             status = "available" if found else "NOT FOUND"
-            print(f"  {SMALL_MODEL}: {status}")
-            print(f"  {len(_api_keys)} API key(s) registered")
+            print(f"  {OLLAMA_MODEL}: {status}")
         except Exception as e:
-            print(f"  API check failed: {e}")
+            print(f"  Ollama not reachable: {e}")
+    else:
+        if not _api_keys:
+            print("  No API keys registered yet.")
+            print("  *** Call lab_utils.set_api_keys(['gsk_...']) ***")
+        else:
+            try:
+                headers = {
+                    "Authorization": f"Bearer {_get_current_key()}",
+                    "Content-Type": "application/json",
+                }
+                r = requests.get(
+                    "https://api.groq.com/openai/v1/models",
+                    headers=headers,
+                    timeout=10,
+                )
+                r.raise_for_status()
+                models = [m["id"] for m in r.json().get("data", [])]
+                found = SMALL_MODEL in models
+                status = "available" if found else "NOT FOUND"
+                print(f"  {SMALL_MODEL}: {status}")
+                print(f"  {len(_api_keys)} API key(s) registered")
+            except Exception as e:
+                print(f"  API check failed: {e}")
 
     print(f"\nGroup: {GROUP_NAME}")
     if GROUP_NAME == "CHANGE_ME":

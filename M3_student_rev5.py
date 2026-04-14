@@ -6,9 +6,9 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.16.0
+#       jupytext_version: 1.19.1
 #   kernelspec:
-#     display_name: Python 3
+#     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
@@ -119,25 +119,37 @@ print(TARGET_FORMAT)
 #
 # **Go to:** [SPOKE Neighborhood Explorer](https://spoke.rbvi.ucsf.edu)
 #
-# 1. Search for **"chronic kidney disease"** and select the Disease result
-# 2. Identify three different **node types** (colored in the legend)
-# 3. Find one path connecting CKD to a **drug or compound**
-# 4. Set path length to 2 -- what new connections appear?
+# 1. In the toolbar, click **Source** and select **"Disease (identifier)"**
+#    from the dropdown
+# 2. Type **DOID:784** in the text field (this is chronic kidney disease)
+#    and click **Submit**
+# 3. The graph is dense -- that's the point. CKD touches genes, proteins,
+#    compounds, anatomy, and more. Check the **Legend** panel on the right
+#    to see the node types (each color = one type).
+# 4. Use **"Find in network"** to search for **lisinopril**. Drag the
+#    highlighted node to pull it away from the cluster. What diseases is
+#    lisinopril directly connected to?
+# 5. Notice what is **missing**: SPOKE connects lisinopril to diseases
+#    it treats, but not to "ACE inhibitor" (drug class) or "proteinuria"
+#    (symptom). Those relationships exist in clinical text but are not in
+#    SPOKE's curated database. You will extract them in the lab.
 #
-# Record observations below. You will compare your extracted graph to SPOKE
-# at the end of the lab.
+# Record observations below.
 
 # %%
 spoke_observations = """
-Node types observed:
+How many node types does SPOKE use for CKD's neighborhood?
+(count the colors in the Legend)
+
+
+Diseases connected to lisinopril (drag the node to see):
 1.
 2.
 3.
 
-Path from CKD to a drug:
-CKD -> ... -> ...
+What relationship from the CKD article is NOT in SPOKE?
+(hint: think about drug classes, symptoms, lab values)
 
-What surprised me:
 
 """
 print(spoke_observations)
@@ -223,8 +235,29 @@ else:
 # exclusion rules, and output format.
 
 r2_system_prompt = """
-TODO: Write your system prompt here.
-"""
+You are a biomedical knowledge graph builder.
+Extract subject-predicate-object (SPO) triples from biomedical text.
+
+ENTITY RULES:
+- Subjects and objects must be specific biomedical entities: diseases, drugs,
+  drug classes, symptoms, lab values, anatomical structures, or procedures.
+- Do NOT use pronouns, generic terms ("patients", "individuals"), or
+  vague references as subjects or objects.
+- Use the most specific term available (e.g., "ACE inhibitors" not
+  "medications").
+
+PREDICATE RULES:
+- Use concise, consistent predicates: causes, treats, is_complication_of,
+  is_marker_of, is_risk_factor_for, manages, reduces, worsens,
+  slows_progression_of, calculated_from, characterized_by, may_slow.
+- Extract one triple per distinct relationship. Do not create duplicate
+  or redundant triples from the same sentence.
+
+OUTPUT RULES:
+- Return ONLY a valid JSON array: [{"subject": "...", "predicate": "...", "object": "..."}]
+- No prose, no explanation, no markdown formatting.
+- If no valid triple exists, return [].
+- Extract at most 3 triples per sentence."""
 
 # %%
 r2_triples = lu.extract_all_triples(
@@ -260,9 +293,28 @@ print(f"  Round 2 (engineered):  F1={r2_result['triple_f1']}, "
 #
 # **Unlocked:** Entity grounding with Gilda.
 #
-# Raw triples use whatever surface forms the LLM chose. "CKD", "chronic
-# kidney disease", and "Chronic Kidney Disease" would be three different
-# nodes in your graph. **Grounding** maps them all to a single ontology ID.
+# Your Round 2 triples use whatever surface forms the LLM chose. "CKD",
+# "chronic kidney disease", and "Chronic Kidney Disease" would be three
+# different nodes in your graph — even though they refer to the same
+# concept. **Entity grounding** solves this by mapping every extracted
+# term to a standardized identifier from a biomedical ontology.
+#
+# **[Gilda](https://github.com/gyorilab/gilda)** is an entity grounding
+# tool developed at Harvard Medical School. Given a text string like
+# "chronic kidney disease", Gilda searches across multiple biomedical
+# ontologies (MeSH, ChEBI, Disease Ontology, HGNC, GO, and others) and
+# returns the best-matching concept with its standardized ID. For example:
+#
+# - "chronic kidney disease" → `MESH:D007676`
+# - "ACE inhibitors" → `CHEBI:35457`
+# - "eGFR" → `EFO:0005208`
+#
+# This is the same function that SPOKE performs when it builds its
+# knowledge graph — every node in SPOKE is grounded to a standardized
+# ontology. The difference: SPOKE achieves 99.7% grounding because its
+# entities are curated. Your LLM-extracted entities will ground at a
+# much lower rate, and the failures reveal where the LLM's language
+# diverges from standard biomedical terminology.
 #
 # This round adds grounding to your pipeline. Your composite score now
 # includes grounding rate (70% triple F1 + 30% grounding rate).
@@ -272,8 +324,8 @@ print(f"  Round 2 (engineered):  F1={r2_result['triple_f1']}, "
 # %% [markdown]
 # ### 3.1 Test Gilda
 #
-# Gilda maps biomedical terms to standard ontology identifiers. Here are
-# some example terms from the CKD domain:
+# Try grounding some known CKD terms. Notice which succeed, which fail,
+# and what ontology each maps to:
 
 # %%
 import gilda
@@ -312,7 +364,7 @@ print(f"\n{'Entity':<40} {'Status'}")
 print("-" * 75)
 for entity, result in sorted(r3_groundings.items()):
     if result:
-        print(f"{entity:<40} {result['ontology']}:{result['id']} "
+        print(f"{entity:<40} {result['id']} "
               f"(score={result['score']})")
     else:
         print(f"{entity:<40} -- no match")
@@ -427,8 +479,36 @@ ALLOWED_PREDICATES = [
 # explicit constraints.
 
 r4_system_prompt = """
-TODO: Write your schema-constrained system prompt here.
-Use ALLOWED_ENTITY_TYPES and ALLOWED_PREDICATES above as reference.
+You are a biomedical knowledge graph builder.
+Extract subject-predicate-object triples from biomedical text.
+
+ALLOWED ENTITY TYPES (subjects and objects must be one of these):
+- Disease (e.g., chronic kidney disease, hypertension, anemia)
+- Drug (e.g., ACE inhibitors, NSAIDs, phosphate binders)
+- Symptom (e.g., proteinuria, edema, hyperkalemia)
+- LabValue (e.g., eGFR, serum creatinine, GFR)
+- Procedure (e.g., hemodialysis, kidney transplantation)
+- Anatomy (e.g., kidney, nephron)
+
+ALLOWED PREDICATES (use only these):
+- causes
+- treats
+- is_complication_of
+- is_marker_of
+- is_risk_factor_for
+- manages
+- reduces
+- worsens
+- slows_progression_of
+- calculated_from
+- characterized_by
+
+RULES:
+- If a relationship does not fit the allowed predicates, skip it.
+- Subjects and objects must be specific named entities, not pronouns or
+  generic terms like "patients".
+- Return ONLY a valid JSON array: [{"subject": "...", "predicate": "...", "object": "..."}]
+- Return [] if no valid triple exists.
 """
 
 # %%
@@ -458,6 +538,20 @@ print(f"  Round 4 (constrained): F1={r4_result['triple_f1']}, "
       f"extracted={r4_result['matched']+r4_result['extra']} triples")
 print(f"\n  Round 3 grounding:     {r3_result['grounding_rate']:.0%}")
 print(f"  Round 4 grounding:     {r4_result['grounding_rate']:.0%}")
+
+# %%
+from lab_utils import match_triple                        
+print("=== Missed gold triples (Round 4) ===")
+for j, g in enumerate(lu.GOLD_TRIPLES["triples"]):                                                                                                                                                                 
+  matched = any(match_triple(ext, g) for ext in r4_triples)                                                                                                                                                      
+  if not matched:                                                                                                                                                                                                
+      print(f"  MISS: {g['subject']} --[{g['predicate']}]--> {g['object']}")                                                                                                                                     
+                                                                                                                                                                                                                 
+print(f"\n=== Extra triples (not in gold) ===")                                                                                                                                                                    
+for i, ext in enumerate(r4_triples):                                                                                                                                                                               
+  matched = any(match_triple(ext, g) for g in lu.GOLD_TRIPLES["triples"])                                                                                                                                        
+  if not matched:                                       
+      print(f"  EXTRA: {ext['subject']} --[{ext['predicate']}]--> {ext['object']}")
 
 # %% [markdown]
 # **Discussion:**
