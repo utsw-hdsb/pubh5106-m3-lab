@@ -510,6 +510,37 @@ def show_triple_score(
 
 
 # ─────────────────────────────────────────────────────────────────────
+# Diagnostic: missed and extra triples
+# ─────────────────────────────────────────────────────────────────────
+
+def show_missed_and_extra(extracted: list[dict], gold: list[dict]) -> None:
+    """Show which gold triples were missed and which extracted triples
+    are not in the gold standard. Helps diagnose extraction errors."""
+    print("=== Missed gold triples ===")
+    missed = 0
+    for g in gold:
+        if not any(match_triple(ext, g) for ext in extracted):
+            print(f"  MISS: {g['subject']} --[{g['predicate']}]--> {g['object']}")
+            missed += 1
+    if missed == 0:
+        print("  (none — all gold triples matched!)")
+
+    print(f"\n=== Extra triples (not in gold) ===")
+    extra = 0
+    for ext in extracted:
+        if not any(match_triple(ext, g) for g in gold):
+            print(f"  EXTRA: {ext.get('subject', '?')} "
+                  f"--[{ext.get('predicate', '?')}]--> "
+                  f"{ext.get('object', '?')}")
+            extra += 1
+    if extra == 0:
+        print("  (none — perfect precision!)")
+
+    print(f"\nSummary: {len(gold) - missed}/{len(gold)} matched, "
+          f"{extra} extra")
+
+
+# ─────────────────────────────────────────────────────────────────────
 # Leaderboard
 # ─────────────────────────────────────────────────────────────────────
 

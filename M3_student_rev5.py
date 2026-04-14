@@ -225,6 +225,14 @@ else:
 # - What to exclude (negations? hedged statements? vague references?)
 # - What output format to return
 #
+# **Critical:** The scoring system parses your LLM output as a JSON array.
+# Your prompt must explicitly instruct the model to return a JSON array
+# in the target format shown above:
+# `[{"subject": "...", "predicate": "...", "object": "..."}]`
+#
+# If the model returns prose instead of JSON, the parser will find nothing
+# and your score will be 0 — the same result as Round 1.
+#
 # This is the same work MYCIN's authors did when they wrote production rules.
 # The quality of your rules determines the quality of the extraction.
 
@@ -232,32 +240,11 @@ else:
 # -- YOUR ROUND 2 SYSTEM PROMPT --
 # TODO: Write a system prompt that instructs the LLM to extract SPO triples.
 # Think about: role definition, entity types, predicate vocabulary,
-# exclusion rules, and output format.
+# exclusion rules, and JSON output format.
 
 r2_system_prompt = """
-You are a biomedical knowledge graph builder.
-Extract subject-predicate-object (SPO) triples from biomedical text.
-
-ENTITY RULES:
-- Subjects and objects must be specific biomedical entities: diseases, drugs,
-  drug classes, symptoms, lab values, anatomical structures, or procedures.
-- Do NOT use pronouns, generic terms ("patients", "individuals"), or
-  vague references as subjects or objects.
-- Use the most specific term available (e.g., "ACE inhibitors" not
-  "medications").
-
-PREDICATE RULES:
-- Use concise, consistent predicates: causes, treats, is_complication_of,
-  is_marker_of, is_risk_factor_for, manages, reduces, worsens,
-  slows_progression_of, calculated_from, characterized_by, may_slow.
-- Extract one triple per distinct relationship. Do not create duplicate
-  or redundant triples from the same sentence.
-
-OUTPUT RULES:
-- Return ONLY a valid JSON array: [{"subject": "...", "predicate": "...", "object": "..."}]
-- No prose, no explanation, no markdown formatting.
-- If no valid triple exists, return [].
-- Extract at most 3 triples per sentence."""
+TODO: Write your system prompt here.
+"""
 
 # %%
 r2_triples = lu.extract_all_triples(
@@ -281,6 +268,17 @@ print(f"  Round 1 (no prompt):   F1={r1_result['triple_f1']}, "
       f"matched={r1_result['matched']}/{len(lu.GOLD_TRIPLES['triples'])}")
 print(f"  Round 2 (engineered):  F1={r2_result['triple_f1']}, "
       f"matched={r2_result['matched']}/{len(lu.GOLD_TRIPLES['triples'])}")
+
+# %% [markdown]
+# ### 2.2 Diagnose: What Did You Miss? What's Noise?
+#
+# The score tells you *how many* triples matched, but not *which ones*.
+# The diagnostic below shows exactly which gold-standard triples your
+# prompt missed and which extracted triples are not in the gold standard.
+# Use this to refine your prompt — then re-run the extraction.
+
+# %%
+lu.show_missed_and_extra(r2_triples, lu.GOLD_TRIPLES["triples"])
 
 # %% [markdown]
 # **Discussion:** Which rules in your system prompt had the most impact?
@@ -479,36 +477,8 @@ ALLOWED_PREDICATES = [
 # explicit constraints.
 
 r4_system_prompt = """
-You are a biomedical knowledge graph builder.
-Extract subject-predicate-object triples from biomedical text.
-
-ALLOWED ENTITY TYPES (subjects and objects must be one of these):
-- Disease (e.g., chronic kidney disease, hypertension, anemia)
-- Drug (e.g., ACE inhibitors, NSAIDs, phosphate binders)
-- Symptom (e.g., proteinuria, edema, hyperkalemia)
-- LabValue (e.g., eGFR, serum creatinine, GFR)
-- Procedure (e.g., hemodialysis, kidney transplantation)
-- Anatomy (e.g., kidney, nephron)
-
-ALLOWED PREDICATES (use only these):
-- causes
-- treats
-- is_complication_of
-- is_marker_of
-- is_risk_factor_for
-- manages
-- reduces
-- worsens
-- slows_progression_of
-- calculated_from
-- characterized_by
-
-RULES:
-- If a relationship does not fit the allowed predicates, skip it.
-- Subjects and objects must be specific named entities, not pronouns or
-  generic terms like "patients".
-- Return ONLY a valid JSON array: [{"subject": "...", "predicate": "...", "object": "..."}]
-- Return [] if no valid triple exists.
+TODO: Write your schema-constrained system prompt here.
+Use ALLOWED_ENTITY_TYPES and ALLOWED_PREDICATES above as reference.
 """
 
 # %%
@@ -539,28 +509,30 @@ print(f"  Round 4 (constrained): F1={r4_result['triple_f1']}, "
 print(f"\n  Round 3 grounding:     {r3_result['grounding_rate']:.0%}")
 print(f"  Round 4 grounding:     {r4_result['grounding_rate']:.0%}")
 
+# %% [markdown]
+# ### 4.2 Diagnose Round 4
+
 # %%
-from lab_utils import match_triple                        
-print("=== Missed gold triples (Round 4) ===")
-for j, g in enumerate(lu.GOLD_TRIPLES["triples"]):                                                                                                                                                                 
-  matched = any(match_triple(ext, g) for ext in r4_triples)                                                                                                                                                      
-  if not matched:                                                                                                                                                                                                
-      print(f"  MISS: {g['subject']} --[{g['predicate']}]--> {g['object']}")                                                                                                                                     
-                                                                                                                                                                                                                 
-print(f"\n=== Extra triples (not in gold) ===")                                                                                                                                                                    
-for i, ext in enumerate(r4_triples):                                                                                                                                                                               
-  matched = any(match_triple(ext, g) for g in lu.GOLD_TRIPLES["triples"])                                                                                                                                        
-  if not matched:                                       
-      print(f"  EXTRA: {ext['subject']} --[{ext['predicate']}]--> {ext['object']}")
+lu.show_missed_and_extra(r4_triples, lu.GOLD_TRIPLES["triples"])
 
 # %% [markdown]
 # **Discussion:**
 # - Did constraining the schema improve or hurt recall?
 # - Did it improve precision? Grounding rate?
+# - Look at the EXTRA triples: are any of them *valid* relationships
+#   that just aren't in the gold standard? This is important — the gold
+#   standard is not perfect either.
 # - SPOKE uses exactly this approach -- typed edges enforce a schema.
 #   What is gained and what is lost?
 # - This is the **closed-world assumption**: if it's not in the schema,
 #   it can't be extracted. When is this acceptable in clinical AI?
+# - **From extraction to curation:** In production KG construction,
+#   automated extraction is only the first step. A human domain expert
+#   reviews the extracted triples — accepting, rejecting, or correcting
+#   each one. This is how SPOKE achieves 99.7% grounding: not by having
+#   better algorithms, but by having curated source databases. Your
+#   MISS and EXTRA lists above are what a knowledge engineer would
+#   review before adding triples to a production graph.
 
 # %% [markdown]
 # ---
