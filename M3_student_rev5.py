@@ -67,7 +67,7 @@ from pathlib import Path
 import pandas as pd
 import networkx as nx
 from pyvis.network import Network
-from IPython.display import display, Markdown, HTML
+from IPython.display import display, Markdown, HTML, IFrame
 
 import lab_utils as lu
 
@@ -434,9 +434,8 @@ net.set_options(json.dumps({
     "edges": {"smooth": {"type": "curvedCW", "roundness": 0.2}}
 }))
 
-net.save_graph("m3_kg_visualization.html")
-with open("m3_kg_visualization.html", encoding="utf-8") as f:
-    display(HTML(f.read()))
+net.save_graph("m3_lab_ckd_graph.html")
+display(IFrame("m3_lab_ckd_graph.html", width="100%", height=650))
 
 # %% [markdown]
 # **Discussion:**

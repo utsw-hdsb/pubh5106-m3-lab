@@ -45,7 +45,7 @@ from collections import defaultdict
 import requests
 import networkx as nx
 from pyvis.network import Network
-from IPython.display import display, HTML, Markdown
+from IPython.display import display, HTML, Markdown, IFrame
 
 SPOKE_API = "https://spoke.rbvi.ucsf.edu/api/v1"
 
@@ -374,9 +374,8 @@ net.set_options(json.dumps({
     "edges": {"smooth": {"type": "curvedCW", "roundness": 0.15}}
 }))
 
-net.save_graph("patient_cancer_graph.html")
-with open("patient_cancer_graph.html", encoding="utf-8") as f:
-    display(HTML(f.read()))
+net.save_graph("m3_spoke_patient_graph.html")
+display(IFrame("m3_spoke_patient_graph.html", width="100%", height=750))
 
 # %% [markdown]
 # ## 5b. Genes Across Patient and Family
