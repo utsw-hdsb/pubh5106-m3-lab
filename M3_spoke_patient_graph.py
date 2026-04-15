@@ -436,16 +436,9 @@ for gene, count in gene_counts.most_common():
 # **Drug links (orange):**
 # - Vincristine and dactinomycin **treat** nephroblastoma (established)
 # - Both are also **in clinical trials for** melanoma
-# - Vincristine has **leukaemia** as a known side effect — proof these
-#   drugs CAN cause secondary malignancies. But neither melanoma nor
-#   carcinoid appears in either drug's side effect list.
-# - **Could the chemotherapy have caused the later cancers?** This is a
-#   legitimate clinical question that SPOKE cannot answer. SPOKE's side
-#   effect data (from SIDER) carries no temporal information — "nausea"
-#   and "leukaemia" are represented identically, with no distinction
-#   between acute effects during treatment and late effects emerging
-#   decades later. Childhood cancer survivorship studies (e.g., CCSS)
-#   do track these long-term outcomes, but that data is not in SPOKE.
+# - Vincristine has **leukaemia** as a known side effect — proof it CAN
+#   cause secondary malignancies — but melanoma is NOT in its side
+#   effect list
 # - Dactinomycin has 75 side effects in SPOKE — but only when you query
 #   the right compound variant ("Dactinomycin (USP)"). Two other
 #   dactinomycin entries have zero side effects. This fragmentation is a
@@ -493,25 +486,10 @@ for gene, count in gene_counts.most_common():
 #    - Maternal aunt's carcinoid syndrome fits this pathway
 #    - These genes also appear in the sister's breast cancer
 #
-# 4. **Late treatment effect (vincristine/dactinomycin → carcinoid? melanoma?)**
-#    - Vincristine causes secondary leukaemia (documented in SPOKE)
-#    - Could the same drugs contribute to carcinoid or melanoma decades
-#      later? The Childhood Cancer Survivor Study shows elevated second
-#      primary cancer rates in Wilms tumor survivors treated with
-#      chemotherapy and radiation.
-#    - **SPOKE cannot evaluate this hypothesis** — it has no temporal
-#      metadata on side effects and no survivorship data. The SIDER-derived
-#      edges treat all adverse effects as equivalent regardless of onset.
-#    - Note: the family history (aunt with carcinoid, sister with breast
-#      cancer) suggests genetics may be the stronger explanation — but
-#      treatment effects and genetic predisposition are not mutually
-#      exclusive. Both may contribute.
-#
-# 5. **Two lineages, two pathways?**
+# 4. **Two lineages, two pathways?**
 #    - *Maternal*: aunt with carcinoid → SDH pathway → NET + melanoma
 #    - *Paternal*: father with prostate → BRCA2 pathway → breast + melanoma
-#    - The patient may carry variants from both sides, with childhood
-#      chemotherapy adding a third layer of risk
+#    - The patient may carry variants from both sides
 #
 # ### What a Genetic Counselor Might Recommend
 #
@@ -631,6 +609,5 @@ for gene, count in gene_counts.most_common():
 # | **Rare diseases are invisible** | Appendix carcinoid has no gene data in SPOKE. The graph cannot help with what it doesn't know. |
 # | **Ontology choice is an ontological commitment** | SPOKE uses DO (site-based), not SNOMED (multi-axis). This determines which diseases are connected and which are invisible. A different ontology choice would yield a different graph with different findings. |
 # | **Identifier fragmentation hides data** | Dactinomycin has 3 compound entries in SPOKE. Side effects are attached to only one (the USP variant). A naive query returns 0 side effects for a major chemotherapy drug. The same drug, different identifiers, fragmented knowledge. |
-# | **No temporal dimension** | SPOKE's side effect edges carry no onset timing. "Nausea" (acute) and "leukaemia" (years later) look identical. The question "could childhood chemo cause adult melanoma?" is clinically legitimate but structurally invisible in SPOKE. |
 
 # %%

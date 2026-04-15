@@ -333,19 +333,20 @@ test_terms = [
     "ACE inhibitors", "eGFR", "proteinuria", "hemodialysis",
     "anemia", "NSAIDs", "hyperkalemia",
 ]
-print(f"{'Term':<35} {'Result'}")
-print("-" * 75)
+print(f"{'Term':<25} {'Ontology ID':<20} {'Preferred Term':<35} {'Score'}")
+print("-" * 105)
 for term in test_terms:
     try:
         matches = gilda.ground(term)
         if matches:
             top = matches[0]
-            print(f"{term:<35} {top.term.db}:{top.term.id} "
-                  f"(score={top.score:.3f})")
+            ont_id = f"{top.term.db}:{top.term.id}"
+            print(f"{term:<25} {ont_id:<20} {top.term.entry_name:<35} "
+                  f"{top.score:.3f}")
         else:
-            print(f"{term:<35} -- no match")
+            print(f"{term:<25} {'--':<20} {'no match':<35}")
     except Exception:
-        print(f"{term:<35} -- error")
+        print(f"{term:<25} {'--':<20} {'error':<35}")
 
 # %% [markdown]
 # ### 3.2 Ground Your Round 2 Triples
@@ -358,14 +359,14 @@ total = len(r3_groundings)
 print(f"\nGrounded {matched}/{total} entities ({matched/total*100:.0f}%)")
 
 # Show grounding details
-print(f"\n{'Entity':<40} {'Status'}")
-print("-" * 75)
+print(f"\n{'Extracted Entity':<35} {'Ontology ID':<20} {'Preferred Term':<30} {'Score'}")
+print("-" * 110)
 for entity, result in sorted(r3_groundings.items()):
     if result:
-        print(f"{entity:<40} {result['id']} "
-              f"(score={result['score']})")
+        print(f"{entity:<35} {result['id']:<20} {result['label']:<30} "
+              f"{result['score']}")
     else:
-        print(f"{entity:<40} -- no match")
+        print(f"{entity:<35} {'--':<20} {'no match':<30}")
 
 # %%
 r3_result = lu.show_triple_score(

@@ -375,7 +375,138 @@ cancers — two melanomas alone might not be sufficient to suspect LFS.
 # of the question before reading a single paper.
 
 # %% [markdown]
-# ## 7. Connection to the Lab
+# ## 7. Can SPOKE Reason About Diet? The Potassium Example
+#
+# The CKD article states that hyperkalemia is a life-threatening
+# complication of advanced CKD. A clinician knows that patients with
+# CKD should limit potassium-rich foods like bananas and oranges.
+# Can SPOKE support this reasoning?
+
+# %%
+# Step 1: What foods contain potassium?
+potassium_id = "inchikey:ZLMJMSJWJFRBEC-UHFFFAOYSA-N"
+k_data = spoke_neighborhood("Compound", potassium_id)
+
+k_foods = []
+k_diseases = []
+k_labs = []
+k_types = {}
+for item in k_data:
+    d = item["data"]
+    t = d["neo4j_type"]
+    props = d.get("properties", {})
+    k_types[t] = k_types.get(t, 0) + 1
+    if t == "Food":
+        k_foods.append(props.get("name", "?"))
+    elif t == "Disease":
+        k_diseases.append(props.get("name", "?"))
+    elif t == "ClinicalLab":
+        k_labs.append(props.get("name", "?"))
+
+print(f"Potassium in SPOKE: {len(k_data)} total connections\n")
+print("Connection types:")
+for t, count in sorted(k_types.items(), key=lambda x: -x[1]):
+    print(f"  {t}: {count}")
+
+print(f"\nFoods containing potassium: {len(k_foods)}")
+# Show some recognizable high-potassium foods
+highlight = ["banana", "potato", "avocado", "spinach", "orange",
+             "tomato", "apricot", "sweet potato"]
+for food in sorted(k_foods):
+    mark = " **" if any(h in food.lower() for h in highlight) else ""
+    if mark or len(k_foods) <= 30:
+        print(f"  {food}{mark}")
+
+if len(k_foods) > 30:
+    print(f"  ... ({len(k_foods)} total)")
+
+# %%
+# Step 2: Does SPOKE connect hyperkalemia to CKD?
+hyperkalemia_data = spoke_neighborhood("Symptom", "D006947")
+hk_types = {}
+hk_diseases = []
+for item in hyperkalemia_data:
+    d = item["data"]
+    t = d["neo4j_type"]
+    hk_types[t] = hk_types.get(t, 0) + 1
+    if t == "Disease":
+        hk_diseases.append(d["properties"].get("name", "?"))
+
+print(f"Hyperkalemia (Symptom): {len(hyperkalemia_data)} connections")
+print(f"  Genes: {hk_types.get('Gene', 0)}")
+print(f"  Diseases: {hk_types.get('Disease', 0)}")
+if hk_diseases:
+    print(f"\n  Diseases that present with hyperkalemia:")
+    for d in sorted(hk_diseases):
+        print(f"    {d}")
+
+# %%
+# Step 3: Is there a direct link from potassium to hyperkalemia?
+# Check if any Compound→Symptom edge type exists
+print("Does potassium connect directly to hyperkalemia?\n")
+
+# Search potassium's neighborhood for the hyperkalemia symptom
+found_hk = False
+for item in k_data:
+    d = item["data"]
+    if d["neo4j_type"] == "Symptom":
+        name = d["properties"].get("name", "")
+        if "hyperkal" in name.lower():
+            found_hk = True
+            print(f"  YES: {name}")
+
+if not found_hk:
+    print("  NO — there is no Compound→Symptom edge in SPOKE.")
+    print("  Potassium connects to Foods, Proteins, Labs, and Diseases,")
+    print("  but not to Symptoms.")
+
+# %% [markdown]
+# ### What SPOKE knows vs. what a clinician knows
+#
+# | Reasoning Step | In SPOKE? | Edge Type |
+# |---------------|-----------|-----------|
+# | Banana contains potassium | Yes (350 foods) | `CONTAINS_FcC` |
+# | Potassium is measured by serum potassium lab | Yes (88 labs) | `MEASURES_CLmC` |
+# | Hyperkalemia is associated with 42 genes | Yes | `ASSOCIATES_GaS` |
+# | Hyperkalemia presents in certain diseases | Yes (3 diseases) | `PRESENTS_DpS` |
+# | **Potassium → hyperkalemia** | **NO** | No Compound→Symptom edge type |
+# | **CKD → hyperkalemia as symptom** | **NO** | CKD has 0 symptom edges |
+# | **High-potassium food is dangerous in CKD** | **NO** | Requires multi-hop reasoning across missing edges |
+#
+# SPOKE can tell you "bananas contain potassium" and "hyperkalemia is
+# associated with kidney disease." But it **cannot connect the dots**:
+#
+# ```
+# banana --[CONTAINS]--> potassium --[???]--> hyperkalemia --[PRESENTS_IN]--> CKD
+#                                      ^
+#                                      |
+#                              This edge doesn't exist
+# ```
+#
+# The clinical reasoning chain — "this food is high in a substance that,
+# when elevated in blood, causes a life-threatening condition in patients
+# with this disease" — requires:
+#
+# 1. A **Compound→Symptom causal edge** (potassium excess → hyperkalemia)
+# 2. A **Disease→Symptom edge** for CKD (which has zero symptom associations)
+# 3. **Quantitative reasoning** about thresholds (some potassium is fine;
+#    too much is dangerous; the threshold depends on kidney function)
+#
+# None of these exist in SPOKE. This is not a data gap that more curation
+# would fix — it is a **structural limitation** of the edge type schema.
+# SPOKE's 93 edge types do not include Compound→Symptom causation or
+# dose-dependent toxicity. A different knowledge graph designed for
+# nutritional medicine would need these edge types in its schema.
+#
+# This connects directly to the lab: your Round 4 schema (6 entity types,
+# 11 predicates) determined what relationships you could extract. SPOKE's
+# schema (34 node types, 93 edge types) determines what clinical reasoning
+# it can support. **Both are ontological commitments** (Davis et al., 1993)
+# — and both have blind spots that no amount of data can fill without
+# changing the schema itself.
+
+# %% [markdown]
+# ## 8. Connection to the Lab
 #
 # In the M3 lab, you built a knowledge graph from 20 sentences about CKD.
 # Your graph had ~30 nodes and ~25 edges. SPOKE has 27 million nodes and

@@ -282,53 +282,7 @@ if not df.empty:
         print(f"  {drug_name}: {len(ses)}")
 
 # %% [markdown]
-# ## 7. No Temporal Information: Acute vs. Long-Term Effects
-#
-# One of the most important clinical questions about chemotherapy side
-# effects is *when* they occur. Neuropathy from vincristine typically
-# appears during treatment. Secondary leukaemia may emerge years or
-# decades later. But in SPOKE, both are represented by identical
-# `CAUSES_CcSE` edges with identical metadata:
-#
-# ```
-# vincristine --[CAUSES_CcSE]--> Neuropathy peripheral
-#     properties: {"sources": ["SIDER 4.1"]}
-#
-# vincristine --[CAUSES_CcSE]--> Leukaemia
-#     properties: {"sources": ["SIDER 4.1"]}
-# ```
-#
-# There is **no onset timing, duration, frequency, or severity** on any
-# side effect edge. SIDER (the source database) is derived from FDA drug
-# labels, which list adverse effects without temporal granularity. To
-# SPOKE, "nausea" and "leukaemia" carry the same weight.
-#
-# This matters for our patient: **could childhood chemotherapy with
-# vincristine and dactinomycin have contributed to the later development
-# of carcinoid tumor or melanoma?** SPOKE cannot answer this question
-# because:
-#
-# 1. Neither melanoma nor carcinoid appears in the drugs' side effect
-#    lists (SIDER doesn't have those associations)
-# 2. Even if they did, the edge would carry no temporal information to
-#    distinguish treatment-emergent from late-onset effects
-# 3. Long-term cancer survivorship outcomes are studied in registries
-#    like the Childhood Cancer Survivor Study (CCSS) and late-effects
-#    literature — data sources that SPOKE does not integrate
-#
-# By contrast, gene-disease edges (`ASSOCIATES_DaG`) in SPOKE are
-# richer — they carry confidence scores, evidence sources (text mining
-# vs. curated), and sometimes multiple lines of evidence. But even
-# these lack temporal information.
-#
-# **The gap:** A knowledge graph that integrated survivorship data
-# alongside SIDER could distinguish "vincristine causes nausea during
-# treatment" from "vincristine-containing regimens are associated with
-# elevated secondary malignancy risk at 20+ years." That graph does not
-# yet exist.
-
-# %% [markdown]
-# ## 8. Important Caveats
+# ## 7. Important Caveats
 #
 # - **Source:** Side effect data comes from **SIDER** (Side Effect
 #   Resource), which is derived from FDA drug labels and post-marketing
@@ -337,17 +291,11 @@ if not df.empty:
 # - **Not exhaustive:** Long-term effects that emerge decades after
 #   treatment (e.g., secondary cancers, late cardiac toxicity) may not
 #   appear in SIDER if they are studied in survivorship literature
-#   rather than drug labels. For our patient, the question of whether
-#   vincristine/dactinomycin contributed to later carcinoid or melanoma
-#   is clinically legitimate but unanswerable from SPOKE alone.
+#   rather than drug labels.
 #
 # - **No severity or frequency:** SPOKE stores the side effect
 #   association but not how common or severe each effect is. "Coma"
 #   and "nausea" appear with equal weight in the graph.
-#
-# - **No temporal information:** Acute effects (nausea during infusion)
-#   and late effects (secondary leukaemia decades later) are represented
-#   identically. See Section 7 above.
 #
 # - **Combination effects:** Side effects listed here are for each drug
 #   individually. Combination chemotherapy (vincristine + dactinomycin)
